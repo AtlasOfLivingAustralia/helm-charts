@@ -1,0 +1,4 @@
+apiVersion: v2
+name: name-matching-service
+description: A Helm chart for deploying name matching service for a LA Portal
+version: 0.1.0

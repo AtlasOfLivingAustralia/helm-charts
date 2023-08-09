@@ -1,0 +1,10 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: {{ .Values.storageClassName }}
+provisioner: {{ .Values.provisioner }}
+parameters:
+  provisioningMode: {{ .Values.provisioningMode }}
+  fileSystemId: << to be added - create EFS >>
+  directoryPerms: "700"
+

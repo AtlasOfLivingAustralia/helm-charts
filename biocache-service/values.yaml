@@ -1,0 +1,4 @@
+image:
+  repository: atlasoflivingaustralia/biocache-service
+  tag: f3c2069e
+replicaCount: 2

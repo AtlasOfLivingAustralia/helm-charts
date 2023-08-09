@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: biocache-service
+  labels:
+    app: biocache-service
+  annotations:
+{{ toYaml .Values.ingressAnnotations | indent 4 }}
+spec:
+  ingressClassName: {{ .Values.ingressClassName }}
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: biocache-service
+                port:
+                  number: 443

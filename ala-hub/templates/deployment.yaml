@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ala-hub
+  labels:
+    app: ala-hub
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: ala-hub
+  template:
+    metadata:
+      labels:
+        app: ala-hub
+    spec:
+      containers:
+        - name: ala-hub
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JAVA_OPTS
+              value: "-Dserver.port=8080 -Djava.awt.headless=true -Xmx4g -Xms2g -Dlog4j2.formatMsgNoLookups=true"
+            - name: SERVER_PORT
+              value: "8080"
+          resources:
+            limits:
+              cpu: "2"
+              memory: "8Gi"
+            requests:
+              cpu: "1"
+              memory: "4Gi"
+          volumeMounts:
+            - name: ala-hub-config
+              mountPath: /data/ala-hub/config/
+      volumes:
+        - name: ala-hub-config
+          configMap:
+            name: ala-hub-config
+      restartPolicy: Always
+

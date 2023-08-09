@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sensitive-data-service
+  labels:
+    app: sensitive-data-service
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      name: "web-access-sensitive-data-service-https"
+      port: 443
+      targetPort: 9189
+  selector:
+    app: sensitive-data-service
+

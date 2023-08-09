@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bie-index
+  labels:
+    app: bie-index
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      name: "web-access-bie-index-https"
+      port: 443
+      targetPort: 8080
+  selector:
+    app: bie-index
+

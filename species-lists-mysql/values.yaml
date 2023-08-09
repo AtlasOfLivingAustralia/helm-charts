@@ -1,0 +1,49 @@
+image:
+  registry: docker.io
+  repository: bitnami/mysql
+  tag: 8.0.34-debian-11-r13
+  debug: true
+
+commonLabels:
+  species-lists-mysql-network: "true"
+
+auth:
+  createDatabase: true
+  database: specieslists
+  rootPassword: password
+  password: password
+
+networkPolicy:
+  enabled: true
+  allowExternal: false
+  explicitNamespacesSelector:
+    matchLabels:
+      species-lists-mysql-network: "true"
+
+primary:
+
+  startupProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+
+  resources:
+    limits:
+      cpu: "1000m"
+      memory: "4Gi"
+    requests:
+      cpu: "500m"
+      memory: "2Gi"
+
+  persistence:
+    existingClaim: "species-lists-mysql-claim"
+    mountPath: /bitnami/mysql/data
+    subPath: species-lists-mysql
+    enabled: true
+    storageClass: efs-sc
+    accessMode: ReadWriteMany
+    size: 100Gi
+
+

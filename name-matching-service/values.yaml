@@ -1,0 +1,4 @@
+image:
+  repository: atlasoflivingaustralia/ala-namematching-service
+  tag: v20210811-3
+replicaCount: 3

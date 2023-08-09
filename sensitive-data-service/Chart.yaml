@@ -1,0 +1,4 @@
+apiVersion: v2
+name: sensitive-data-service
+description: A Helm chart for deploying sensitive data service for a LA Portal
+version: 0.1.0

@@ -1,0 +1,4 @@
+image:
+  repository: atlasoflivingaustralia/ala-hub
+  tag: 343a0c9
+replicaCount: 1

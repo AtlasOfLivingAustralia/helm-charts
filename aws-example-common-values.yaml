@@ -1,0 +1,17 @@
+# Storage
+storageClassName: efs-sc
+fileSystemId: fs-1234567890
+provisioner: efs.csi.aws.com
+provisioningMode: efs-ap
+csi:
+  driver: efs.csi.aws.com
+  volumeHandle: fs-1234567890::fsap-1234567890
+
+# Ingress common properties
+ingressClassName: alb
+ingressAnnotations:
+  alb.ingress.kubernetes.io/scheme: internet-facing
+  alb.ingress.kubernetes.io/target-type: ip
+  alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-2:1234567890:certificate/<uuid>
+
+

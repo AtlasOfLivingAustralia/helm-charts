@@ -1,0 +1,4 @@
+apiVersion: v2
+name: biocache-service
+description: A Helm chart for deploying biocache service for a LA Portal
+version: 0.1.0

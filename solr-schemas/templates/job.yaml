@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: upload-solr-config-job
+spec:
+  template:
+    metadata:
+      labels:
+        solr-network: "true"
+    spec:
+      containers:
+        - name: upload-solr-config
+          image: debian:bookworm-slim
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              sleep 60
+              apt update
+              apt install -y curl
+              apt install -y zip
+              echo 'Copying to pod: {{.Values.solr.podName}}'
+              cd /etc/bie-solr-config/
+              zip -r /tmp/bie-configset.zip *
+
+              curl -X POST  -H 'Content-type:application/octet-stream' --data-binary @/tmp/bie-configset.zip \
+                "http://{{.Values.solr.podName}}:8983/solr/admin/configs?action=UPLOAD&name=bie&overwrite=true"
+
+              cd /etc/biocache-solr-config/
+              zip -r /tmp/biocache-configset.zip *
+              curl -X POST -H 'Content-type:application/octet-stream' --data-binary @/tmp/biocache-configset.zip \
+                "http://{{.Values.solr.podName}}:8983/solr/admin/configs?action=UPLOAD&name=biocache&overwrite=true"
+
+              sleep 60
+
+              curl -X GET "http://{{.Values.solr.podName}}:8983/solr/admin/collections?action=DELETE&name=my-collection"
+
+              curl -X GET "http://{{.Values.solr.podName}}:8983/solr/admin/collections?action=CREATE&name=biocache_initial&collection.configName=biocache&numShards={{.Values.solr.numShards}}"
+              curl -X GET "http://{{.Values.solr.podName}}:8983/solr/admin/collections?action=CREATE&name=bie&collection.configName=bie&numShards={{.Values.solr.numShards}}"
+              curl -X GET "http://{{.Values.solr.podName}}:8983/solr/admin/collections?action=CREATE&name=bie-offline&collection.configName=bie&numShards={{.Values.solr.numShards}}"
+
+              curl -X GET "http://{{.Values.solr.podName}}:8983/solr/admin/collections?action=CREATEALIAS&name=biocache&collections=biocache_initial"
+
+          volumeMounts:
+            - name: bie-config-volume
+              mountPath: /etc/bie-solr-config
+            - name: biocache-config-volume
+              mountPath: /etc/biocache-solr-config
+      restartPolicy: Never
+      volumes:
+        - name: bie-config-volume
+          configMap:
+            name: bie-solr-config
+        - name: biocache-config-volume
+          configMap:
+            name: biocache-solr-config
+  backoffLimit: 4

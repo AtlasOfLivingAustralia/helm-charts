@@ -1,0 +1,4 @@
+apiVersion: v2
+name: solr-schemas
+description: A Helm chart for deploying solr schemas for a LA Portal
+version: 0.1.0

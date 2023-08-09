@@ -1,0 +1,4 @@
+image:
+  repository: atlasoflivingaustralia/ala-sensitive-data-service
+  tag: 1.1.1-20210811-3
+replicaCount: 3

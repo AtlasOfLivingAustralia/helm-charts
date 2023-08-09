@@ -1,0 +1,3 @@
+solr:
+  podName: "solr-0.solr-headless.default.svc.cluster.local"
+  numShards: 4

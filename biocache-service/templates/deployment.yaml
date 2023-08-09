@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biocache-service
+  labels:
+    app: biocache-service
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: biocache-service
+  template:
+    metadata:
+      labels:
+        app: biocache-service
+        solr-network: "true"
+        biocache-cassandra-network: "true"
+    spec:
+      containers:
+        - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          name: biocache-service
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JAVA_OPTS
+              value: "-Dserver.port=8080 -Djava.awt.headless=true -Xmx4g -Xms1g -Dlog4j2.formatMsgNoLookups=true"
+            - name: SERVER_PORT
+              value: "8080"
+          resources:
+            limits:
+              cpu: "4"
+              memory: "8Gi"
+            requests:
+              cpu: "1"
+              memory: "4Gi"
+          volumeMounts:
+            - name: biocache-config
+              mountPath: /data/biocache/config/
+      volumes:
+        - name: biocache-config
+          configMap:
+            name: biocache-config
+

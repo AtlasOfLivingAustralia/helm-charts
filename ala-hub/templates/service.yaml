@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ala-hub
+  labels:
+    app: ala-hub
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      name: "web-access-ala-hub-https"
+      port: 443
+      targetPort: 8080
+  selector:
+    app: ala-hub
+
