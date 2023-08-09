@@ -3,7 +3,6 @@
 ## Import config
 
 ```shell
-kubectl delete configmap species-lists-config
 kubectl create configmap species-lists-config --from-file=/data/ansible-generated/specieslist-webapp/config/
 ```
 

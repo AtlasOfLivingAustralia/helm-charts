@@ -1,15 +1,15 @@
-# Storage
-storageClassName: efs-sc
-fileSystemId: fs-1234567890
-provisioner: efs.csi.aws.com
-provisioningMode: efs-ap
+# Storage settings
+storageClassName: << to be set >>
+fileSystemId: << to be added - created in terraform >>
+provisioner: << to be set >>
+provisioningMode: << to be set >>
 csi:
-  driver: efs.csi.aws.com
-  volumeHandle: fs-123456789::fsap-1234567890
+  driver: << to be set >>
+  volumeHandle: << to be added - create EFS and Access point. For AWS the format is filesystemID::accesspointID >>
+
 
 # Ingress common properties
-ingressClassName: alb
+ingressClassName: << to be added. e.g. alb >>
 ingressAnnotations:
-  alb.ingress.kubernetes.io/scheme: internet-facing
-  alb.ingress.kubernetes.io/target-type: ip
-  alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-2:1234567890:certificate/<uuid>
+  << map of values to be added >>
+

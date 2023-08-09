@@ -1,10 +1,4 @@
-# Cassandra installation
-
-## Setup storage
-
-```shell
-kubectl apply -f biocache-cassandra.yaml 
-```
+# Species list DB installation
 
 ## Install helm package with values.yml
 
