@@ -1,0 +1,8 @@
+apiVersion: v2
+name: species-lists-mysql
+description: MySQL DB for collectory
+version: 0.1.0
+dependencies:
+  - name: mysql
+    version: "9.11.1"
+    repository: oci://registry-1.docker.io/bitnamicharts

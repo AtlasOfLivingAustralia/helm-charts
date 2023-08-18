@@ -1,48 +1,47 @@
-image:
-  registry: docker.io
-  repository: bitnami/mysql
-  tag: 8.0.34-debian-11-r13
-  debug: true
+mysql:
+  image:
+    registry: docker.io
+    repository: bitnami/mysql
+    tag: 8.0.34-debian-11-r13
+    debug: true
 
-commonLabels:
-  collectory-mysql-network: "true"
+  commonLabels:
+    collectory-mysql-network: "true"
 
-auth:
-  createDatabase: true
-  database: collectory
-  rootPassword: password
-  password: password
+  auth:
+    createDatabase: true
+    database: collectory
+    rootPassword: password
+    password: password
 
-networkPolicy:
-  enabled: true
-  allowExternal: false
-  explicitNamespacesSelector:
-    matchLabels:
-      collectory-mysql-network: "true"
-
-primary:
-
-  startupProbe:
-    enabled: false
-  readinessProbe:
-    enabled: false
-  livenessProbe:
-    enabled: false
-
-  resources:
-    limits:
-      cpu: "1000m"
-      memory: "4Gi"
-    requests:
-      cpu: "500m"
-      memory: "2Gi"
-
-  persistence:
-    existingClaim: "collectory-mysql-claim"
-    mountPath: /bitnami/mysql/data
-    subPath: collectory-mysql
+  networkPolicy:
     enabled: true
-    accessMode: ReadWriteMany
-    size: 100Gi
+    allowExternal: false
+    explicitNamespacesSelector:
+      matchLabels:
+        collectory-mysql-network: "true"
 
+  primary:
 
+    startupProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
+    livenessProbe:
+      enabled: false
+
+    resources:
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+
+    persistence:
+      existingClaim: "collectory-mysql-claim"
+      mountPath: /bitnami/mysql/data
+      subPath: collectory-mysql
+      enabled: true
+      accessMode: ReadWriteMany
+      size: 100Gi

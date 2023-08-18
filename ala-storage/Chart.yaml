@@ -1,4 +1,4 @@
 apiVersion: v2
 name: ala-storage
-description: Storage for a LA Portal components
+description: Storage for LA Portal components
 version: 0.1.0

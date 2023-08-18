@@ -1,0 +1,8 @@
+apiVersion: v2
+name: biocache-cassandra
+description: Biocache cassandra DB for annotations, persistent queries
+version: 0.1.0
+dependencies:
+  - name: cassandra
+    version: "10.4.7"
+    repository: oci://registry-1.docker.io/bitnamicharts

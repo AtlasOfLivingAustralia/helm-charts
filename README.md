@@ -20,13 +20,7 @@ For notes on how to setup an EKS cluster, see [this description](../terraform-v0
 
 ## Installation
 
-### Add Helm repository
 
-To add the `ala` Helm repository, run the following command:
-
-```bash        
-helm repo add ala https://helm-charts.ala.org.au
-```
 
 ## Installation of all configmaps
 
@@ -51,38 +45,46 @@ kubectl create configmap ala-hub-config --from-file=/data/ansible-generated/ala-
 
 ## Installation of components
 
+### Add Helm repository
+
+To add the `ala` Helm repository, run the following command:
+
+```bash        
+helm repo add ala https://helm-charts.ala.org.au
+```
+
 ### 1. Storage
 
 This helm chart creates a persistent volume claims for the databases and indexes which
 use standard helm charts that rely on existing volume claims. 
 
 ```shell
-helm install ala-storage ala-storage -f common-values.yaml
+helm install ala-storage ala/ala-storage -f common-values.yaml
 ```
 
 ### 2. Databases
 
 ```shell
-helm install collectory-mysql bitnami/mysql -f collectory-mysql/values.yaml -f common-values.yaml
-helm install species-lists-mysql bitnami/mysql -f species-lists-mysql/values.yaml -f common-values.yaml
-helm install biocache-cassandra bitnami/cassandra -f biocache-cassandra/values.yaml -f common-values.yaml
+helm install collectory-mysql    ala/collectory-mysql     -f common-values.yaml
+helm install species-lists-mysql ala/species-lists-mysql  -f common-values.yaml
+helm install biocache-cassandra  ala/biocache-cassandra   -f common-values.yaml
 ```
 
 ### 3. Indexes
 ```shell
-helm install solr bitnami/solr -f solr/values.yaml -f common-values.yaml
-helm install solr-schemas solr-schemas -f solr-schemas/values.yaml -f common-values.yaml
+helm install solr ala/solr -f common-values.yaml
+helm install solr-schemas ala/solr-schemas -f common-values.yaml
 ```
  
 ### 4. Webapps
 ```shell
-helm install species-lists species-lists -f species-lists/values.yaml -f common-values.yaml
-helm install name-matching-service name-matching-service -f name-matching-service/values.yaml -f common-values.yaml
-helm install sensitive-data-service sensitive-data-service -f sensitive-data-service/values.yaml -f common-values.yaml
-helm install bie-index bie-index -f bie-index/values.yaml -f common-values.yaml
-helm install biocache-service biocache-service -f biocache-service/values.yaml -f common-values.yaml
-helm install ala-hub ala-hub -f ala-hub/values.yaml -f common-values.yaml
-helm install collectory collectory -f collectory/values.yaml -f common-values.yaml
+helm install species-lists ala/species-lists -f common-values.yaml
+helm install name-matching-service ala/name-matching-service  -f common-values.yaml
+helm install sensitive-data-service ala/sensitive-data-service  -f common-values.yaml
+helm install bie-index ala/bie-index -f common-values.yaml
+helm install biocache-service ala/biocache-service -f common-values.yaml
+helm install ala-hub ala/ala-hub -f common-values.yaml
+helm install collectory ala/collectory -f common-values.yaml
 ```
 
 ### 5. Data management (only required if not using managed Airflow)

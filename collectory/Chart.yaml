@@ -2,3 +2,4 @@ apiVersion: v2
 name: collectory
 description: Metadata services for LA Portal
 version: 0.1.0
+appVersion: 4.x.x

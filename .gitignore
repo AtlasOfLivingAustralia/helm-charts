@@ -7,3 +7,5 @@
 /.idea
 /helm-charts.iml
 repo
+Chart.lock
+/*/Chart.lock

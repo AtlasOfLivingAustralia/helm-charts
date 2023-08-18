@@ -1,57 +1,58 @@
-image:
-  registry: docker.io
-  repository: atlasoflivingaustralia/solr8-jts
-  tag: bitnami-8.11.2
-  pullPolicy: Always
+solr:
+  image:
+    registry: docker.io
+    repository: atlasoflivingaustralia/solr8-jts
+    tag: bitnami-8.11.2
+    pullPolicy: Always
 
-auth:
-  enabled: false
-authorization:
-  enabled: false
-
-extraEnvVars:
-  - name: "SOLR_ULIMIT_CHECKS"
-    value: "65000"
-
-service:
-  type: ClusterIP
-
-resources:
-  limits:
-    cpu: "4000m"
-    memory: "16Gi"
-  requests:
-    cpu: "2000m"
-    memory: "4Gi"
-
-replicaCount: 4
-heap: "4g"
-
-networkPolicy:
-  enabled: true
-  allowExternal: false
-  explicitNamespacesSelector:
-    matchLabels:
-      solr-network: "true"
-
-persistence:
-  existingClaim: solr-claim
-  mountPath: /data/solr/
-  subPathExpr: solr/$(MY_POD_NAME)
-  enabled: true
-  accessMode: ReadWriteMany
-  size: 100Gi
-
-solrOpts: "-Dsolr.cloud=true"
-
-zookeeper:
-  enabled: true
-  replicaCount: 3
-  persistence:
+  auth:
     enabled: false
-  ingress:
+  authorization:
+    enabled: false
+
+  extraEnvVars:
+    - name: "SOLR_ULIMIT_CHECKS"
+      value: "65000"
+
+  service:
+    type: ClusterIP
+
+  resources:
+    limits:
+      cpu: "4000m"
+      memory: "16Gi"
+    requests:
+      cpu: "2000m"
+      memory: "4Gi"
+
+  replicaCount: 4
+  heap: "4g"
+
+  networkPolicy:
     enabled: true
-    ingressClassName: "alb"
+    allowExternal: false
+    explicitNamespacesSelector:
+      matchLabels:
+        solr-network: "true"
+
+  persistence:
+    existingClaim: solr-claim
+    mountPath: /data/solr/
+    subPathExpr: solr/$(MY_POD_NAME)
+    enabled: true
+    accessMode: ReadWriteMany
+    size: 100Gi
+
+  solrOpts: "-Dsolr.cloud=true"
+
+  zookeeper:
+    enabled: true
+    replicaCount: 3
+    persistence:
+      enabled: false
+    ingress:
+      enabled: true
+      ingressClassName: "alb"
 
 
 
