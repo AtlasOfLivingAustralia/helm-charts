@@ -1,4 +1,4 @@
 apiVersion: v2
 name: ala-hub
-description: A Helm chart for deploying species lists for a LA Portal
+description: Biocache front end helm chart
 version: 0.1.0

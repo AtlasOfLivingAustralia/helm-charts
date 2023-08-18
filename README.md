@@ -20,12 +20,12 @@ For notes on how to setup an EKS cluster, see [this description](../terraform-v0
 
 ## Installation
 
-### Add Helm repository - coming soon...
+### Add Helm repository
 
 To add the `ala` Helm repository, run the following command:
 
 ```bash        
-helm repo add ala https://ala-helm-repo......s3.amazonaws.com
+helm repo add ala https://helm-charts.ala.org.au
 ```
 
 ## Installation of all configmaps

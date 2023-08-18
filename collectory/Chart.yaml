@@ -1,4 +1,4 @@
 apiVersion: v2
 name: collectory
-description: A Helm chart for deploying Collectory for a LA Portal
+description: Metadata services for LA Portal
 version: 0.1.0

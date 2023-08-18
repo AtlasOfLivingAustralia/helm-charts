@@ -1,4 +1,4 @@
 apiVersion: v2
 name: bie-index
-description: A Helm chart for deploying bie-index for a LA Portal
+description: BIE web services
 version: 0.1.0

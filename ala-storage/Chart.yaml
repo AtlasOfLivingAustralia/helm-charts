@@ -1,4 +1,4 @@
 apiVersion: v2
 name: ala-storage
-description: A Helm chart for deploying ala-storage for a LA Portal
+description: Storage for a LA Portal components
 version: 0.1.0
