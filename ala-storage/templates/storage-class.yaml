@@ -5,6 +5,6 @@ metadata:
 provisioner: {{ .Values.provisioner }}
 parameters:
   provisioningMode: {{ .Values.provisioningMode }}
-  fileSystemId: << to be added - create EFS >>
+  fileSystemId: {{ .Values.fileSystemId }}
   directoryPerms: "700"
 

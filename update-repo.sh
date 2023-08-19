@@ -3,7 +3,7 @@
 mkdir -p repo
 
 for dir in */; do
-    if [ "$dir" != "repo/" ]; then
+    if [ "$dir" != "repo" ]; then
       dir_name=$(basename "$dir")
       helm dependency update "$dir_name"
       helm package "$dir_name" -d repo
