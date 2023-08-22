@@ -9,10 +9,10 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: efs-sc
+  storageClassName: {{ .Values.storageClassName }}
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-05b4e90dde1fc0275::fsap-0d8f50eeb707be580
+    volumeHandle: {{ .Values.csi.volumeHandle }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -21,7 +21,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: efs-sc
+  storageClassName: {{ .Values.storageClassName }}
   volumeName: airflow-postgresql-efs
   resources:
     requests:
