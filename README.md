@@ -16,11 +16,8 @@ to a Kubernetes cluster.
 ## Elastic Kubernetes Service (EKS)
 
 These charts have been tested on [EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)
-For notes on how to setup an EKS cluster, see [this description](../terraform-v0/eks/EKS.md).
 
 ## Installation
-
-
 
 ## Installation of all configmaps
 
