@@ -5,6 +5,9 @@ metadata:
   labels:
     app: ala-hub
   annotations:
+    {{- if .Values.dnsName }}
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.dnsName }}
+    {{- end }}
 {{ toYaml .Values.ingressAnnotations | indent 4 }}
 spec:
   ingressClassName: {{ .Values.ingressClassName }}

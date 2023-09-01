@@ -1,4 +1,4 @@
 apiVersion: v2
 name: name-matching-service
 description: Taxonomic name matching service for a LA Portal
-version: 0.1.0
+version: 0.1.1
