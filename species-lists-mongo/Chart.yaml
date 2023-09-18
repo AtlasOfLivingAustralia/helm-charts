@@ -1,0 +1,8 @@
+apiVersion: v2
+name: species-list-mongo
+description: Species list mongo DB
+version: 0.1.0
+dependencies:
+  - name: mongodb
+    version: "13.18.2"
+    repository: oci://registry-1.docker.io/bitnamicharts

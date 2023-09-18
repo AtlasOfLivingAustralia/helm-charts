@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: species-lists-mongo-volume
+spec:
+  capacity:
+    storage: 100Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ .Values.storageClassName }}
+  csi:
+    driver: {{ .Values.csi.driver }}
+    volumeHandle: {{ .Values.csi.volumeHandle }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: species-lists-mongo-claim
+spec:
+  volumeName: species-lists-mongo-volume
+  accessModes:
+    - ReadWriteMany
+  storageClassName: {{ .Values.storageClassName }}
+  resources:
+    requests:
+      storage: 25Gi

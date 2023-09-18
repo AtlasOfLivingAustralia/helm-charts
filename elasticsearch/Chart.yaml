@@ -1,0 +1,5 @@
+apiVersion: v2
+name: elasticsearch
+description: Simple single node elastic deployment
+version: 0.1.1
+appVersion: 4.x.x

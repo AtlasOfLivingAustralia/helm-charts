@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: elasticsearch-volume
+spec:
+  capacity:
+    storage: 100Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ .Values.storageClassName }}
+  csi:
+    driver: {{ .Values.csi.driver }}
+    volumeHandle: {{ .Values.csi.volumeHandle }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: elasticsearch-claim
+spec:
+  volumeName: elasticsearch-volume
+  accessModes:
+    - ReadWriteMany
+  storageClassName: {{ .Values.storageClassName }}
+  resources:
+    requests:
+      storage: 25Gi

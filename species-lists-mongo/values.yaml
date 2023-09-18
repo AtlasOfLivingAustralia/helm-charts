@@ -1,0 +1,23 @@
+mongodb:
+  auth:
+    rootUser: root
+    rootPassword: password
+    username: species-lists
+    password: password
+    database: species-lists
+
+  persistence:
+    existingClaim: "species-lists-mongo-claim"
+    mountPath: /data/
+    subPathExpr: species-list-mongo/$(MY_POD_NAME)
+    enabled: true
+    storageClass: efs-sc
+    accessMode: ReadWriteMany
+    size: 100Gi
+
+  startupProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false

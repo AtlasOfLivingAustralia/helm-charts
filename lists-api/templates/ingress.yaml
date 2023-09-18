@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lists-api
+  labels:
+    app: lists-api
+  annotations:
+    {{- if .Values.dnsName }}
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.dnsName }}
+    {{- end }}
+{{ toYaml .Values.ingressAnnotations | indent 4 }}
+spec:
+  ingressClassName: {{ .Values.ingressClassName }}
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lists-api
+                port:
+                  number: 443
