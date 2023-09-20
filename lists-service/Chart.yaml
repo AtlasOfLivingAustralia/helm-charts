@@ -1,0 +1,5 @@
+apiVersion: v2
+name: lists-service
+description: lists API
+version: 0.1.1
+appVersion: 7cf8aac

@@ -1,4 +1,0 @@
-apiVersion: v2
-name: lists-api
-description: lists API
-version: 0.1.1

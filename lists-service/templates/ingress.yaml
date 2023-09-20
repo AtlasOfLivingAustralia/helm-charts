@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: lists-api
+  name: lists-service
   labels:
-    app: lists-api
+    app: lists-service
   annotations:
     {{- if .Values.dnsName }}
     external-dns.alpha.kubernetes.io/hostname: {{ .Values.dnsName }}
@@ -18,6 +18,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: lists-api
+                name: lists-service
                 port:
                   number: 443
