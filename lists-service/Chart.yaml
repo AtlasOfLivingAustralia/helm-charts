@@ -2,4 +2,4 @@ apiVersion: v2
 name: lists-service
 description: lists API
 version: 0.1.1
-appVersion: de4036d
+appVersion: 65cb1af
