@@ -13,4 +13,3 @@ spec:
       targetPort: 9179
   selector:
     app: name-matching-service
-

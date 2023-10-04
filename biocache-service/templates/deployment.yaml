@@ -17,22 +17,22 @@ spec:
         biocache-cassandra-network: "true"
     spec:
       containers:
-        - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          name: biocache-service
+        - name: biocache-service
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
             - containerPort: 8080
           env:
             - name: JAVA_OPTS
-              value: "-Dserver.port=8080 -Djava.awt.headless=true -Xmx4g -Xms1g -Dlog4j2.formatMsgNoLookups=true"
+              value: {{ .Values.javaOpts }}
             - name: SERVER_PORT
-              value: "8080"
+              value: {{ .Values.serverPort }}
           resources:
             limits:
-              cpu: "4"
-              memory: "8Gi"
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
             requests:
-              cpu: "1"
-              memory: "4Gi"
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
           volumeMounts:
             - name: biocache-config
               mountPath: /data/biocache/config/
@@ -40,4 +40,4 @@ spec:
         - name: biocache-config
           configMap:
             name: biocache-config
-
+      restartPolicy: Always

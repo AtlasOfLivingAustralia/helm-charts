@@ -1,4 +1,14 @@
 image:
   repository: atlasoflivingaustralia/biocache-service
   tag: f3c2069e
-replicaCount: 2
+
+replicaCount: 1
+serverPort: 8080
+javaOpts: "-Dserver.port=8080 -Djava.awt.headless=true -Xmx4g -Xms1g -Dlog4j2.formatMsgNoLookups=true"
+resources:
+  limits:
+    cpu: "4"
+    memory: "8Gi"
+  requests:
+    cpu: "1"
+    memory: "4Gi"

@@ -1,4 +1,13 @@
 image:
   repository: atlasoflivingaustralia/ala-sensitive-data-service
   tag: 1.1.1-20210811-3
-replicaCount: 3
+replicaCount: 2
+serverPort: 8080
+javaOpts: "-Dserver.port=8080 -Djava.awt.headless=true -Xmx2g -Xms1g -Dlog4j2.formatMsgNoLookups=true"
+resources:
+  limits:
+    cpu: "2000m"
+    memory: "4Gi"
+  requests:
+    cpu: "1000m"
+    memory: "2Gi"

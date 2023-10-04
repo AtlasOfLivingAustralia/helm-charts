@@ -22,7 +22,6 @@ mysql:
         collectory-mysql-network: "true"
 
   primary:
-
     startupProbe:
       enabled: false
     readinessProbe:

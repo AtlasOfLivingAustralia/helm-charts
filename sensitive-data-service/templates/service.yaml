@@ -13,4 +13,3 @@ spec:
       targetPort: 9189
   selector:
     app: sensitive-data-service
-

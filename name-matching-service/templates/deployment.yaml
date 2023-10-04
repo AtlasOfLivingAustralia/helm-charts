@@ -21,8 +21,8 @@ spec:
             - containerPort: 9179
           resources:
             limits:
-              cpu: "2000m"
-              memory: "4Gi"
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
             requests:
-              cpu: "1000m"
-              memory: "2Gi"
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}

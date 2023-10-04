@@ -2,3 +2,12 @@ image:
   repository: atlasoflivingaustralia/ala-hub
   tag: 343a0c9
 replicaCount: 1
+serverPort: 8080
+javaOpts: "-Dserver.port=8080 -Djava.awt.headless=true -Xmx4g -Xms1g -Dlog4j2.formatMsgNoLookups=true"
+resources:
+  limits:
+    cpu: "2"
+    memory: "4Gi"
+  requests:
+    cpu: "1"
+    memory: "2Gi"

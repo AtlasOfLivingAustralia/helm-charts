@@ -1,4 +1,5 @@
 apiVersion: v2
 name: species-lists
 description: Species lists for a LA Portal
-version: 0.1.1
+version: 0.1.2
+appVersion: 30cf3320
