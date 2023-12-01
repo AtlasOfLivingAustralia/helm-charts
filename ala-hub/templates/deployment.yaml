@@ -18,19 +18,19 @@ spec:
         - name: ala-hub
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.serverPort }}
           env:
             - name: JAVA_OPTS
-              value: {{ .Values.javaOpts }}
+              value: "{{ .Values.javaOpts }}"
             - name: SERVER_PORT
-              value: {{ .Values.serverPort }}
+              value: "{{ .Values.serverPort }}"
           resources:
             limits:
-              cpu: {{ .Values.resources.limits.cpu }}
-              memory: {{ .Values.resources.limits.memory }}
+              cpu: "{{ .Values.resources.limits.cpu }}"
+              memory: "{{ .Values.resources.limits.memory }}"
             requests:
-              cpu: {{ .Values.resources.requests.cpu }}
-              memory: {{ .Values.resources.requests.memory }}
+              cpu: "{{ .Values.resources.requests.cpu }}"
+              memory: "{{ .Values.resources.requests.memory }}"
           volumeMounts:
             - name: ala-hub-config
               mountPath: /data/ala-hub/config/

@@ -1,0 +1,16 @@
+image:
+  repository: djtfmartin/publishing-service
+  tag: 0.1.0
+dnsName: publish-ws.dev.ala.org.au
+replicaCount: 1
+serverPort: 5000
+serviceAccount:
+  name: airflow
+resources:
+  limits:
+    cpu: "2000m"
+    memory: "4Gi"
+  requests:
+    cpu: "1000m"
+    memory: "2Gi"
+

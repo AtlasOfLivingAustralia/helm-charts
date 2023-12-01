@@ -4,6 +4,7 @@ solr:
     repository: atlasoflivingaustralia/solr8-jts
     tag: bitnami-8.11.2
     pullPolicy: Always
+    debug: true
 
   auth:
     enabled: false
@@ -23,10 +24,17 @@ solr:
       memory: "16Gi"
     requests:
       cpu: "2000m"
-      memory: "4Gi"
+      memory: "8Gi"
+
+  startupProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
 
   replicaCount: 4
-  heap: "4g"
+  heap: "8g"
 
   networkPolicy:
     enabled: true
@@ -46,13 +54,11 @@ solr:
   solrOpts: "-Dsolr.cloud=true"
 
   zookeeper:
-    enabled: true
-    replicaCount: 3
-    persistence:
-      enabled: false
-    ingress:
-      enabled: true
-      ingressClassName: "alb"
+    enabled: false
 
+  externalZookeeper:
+    servers:
+      - "zookeeper:2181"
 
-
+diagnosticMode:
+  enabled: true

@@ -1,27 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: name-matching-service
+  name: publishing-service
   labels:
-    app: name-matching-service
+    app: publishing-service
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: name-matching-service
+      app: publishing-service
   template:
     metadata:
       labels:
-        app: name-matching-service
+        app: publishing-service
     spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
       containers:
-        - name: name-matching-service
+        - name: publishing-service
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
-            - containerPort: 9179
+            - containerPort: 5000
           env:
-            - name: JAVA_OPTS
-              value: "{{ .Values.javaOpts }}"
+            - name: SERVER_PORT
+              value: "{{ .Values.serverPort }}"
           resources:
             limits:
               cpu: "{{ .Values.resources.limits.cpu }}"
@@ -29,3 +30,12 @@ spec:
             requests:
               cpu: "{{ .Values.resources.requests.cpu }}"
               memory: "{{ .Values.resources.requests.memory }}"
+          volumeMounts:
+            - name: publishing-service-config
+              mountPath: /data/publishing-service/config/
+      volumes:
+        - name: publishing-service-config
+          configMap:
+            name: publishing-service-config
+      restartPolicy: Always
+

@@ -2,3 +2,4 @@ apiVersion: v2
 name: biocache-service
 description: Occurrence JSON and WMS services
 version: 0.1.2
+appVersion: f3c2069e

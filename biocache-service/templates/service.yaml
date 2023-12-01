@@ -6,11 +6,10 @@ metadata:
     app: biocache-service
 spec:
   type: NodePort
-  selector:
-    app: biocache-service
   ports:
     - protocol: TCP
       name: "web-access-biocache-service-https"
       port: 443
       targetPort: 8080
-
+  selector:
+    app: biocache-service

@@ -5,5 +5,5 @@ This chart setups up a storage class and persistent volume claims for MySQL, Cas
 ## Install helm package with values.yml
 
 ```shell
-helm install ala-storage . -f values.yaml
+helm install ala-storage . -f ../common-values.yaml
 ```

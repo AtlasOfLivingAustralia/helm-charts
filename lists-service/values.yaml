@@ -1,10 +1,10 @@
 image:
   repository: atlasoflivingaustralia/lists-service
-  tag: 648cacf
-
-replicaCount: 1
+  tag: 960ad21
+dnsName: lists-ws.dev.ala.org.au
+replicaCount: 2
 serverPort: 8080
-javaOpts: "-Dserver.port=8080 -Djava.awt.headless=true -Xmx2g -Xms1g -Dlog4j2.formatMsgNoLookups=true"
+javaOpts: "-Djava.awt.headless=true -Xmx2g -Xms1g -Dlog4j2.formatMsgNoLookups=true"
 resources:
   limits:
     cpu: "2000m"

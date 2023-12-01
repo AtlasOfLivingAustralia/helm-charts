@@ -6,14 +6,14 @@ This is for non-production use only.
 ## Setup storage
 
 ```shell
-kubectl apply -f airflow-biocache-cassandra.yaml 
+kubectl apply -f airflow.yaml 
 ```
 
 ## Install helm package with values.yml
 
 ```shell
-helm repo add apache-airflow https://airflow.apache.org
-helm install airflow apache-airflow/airflow -f values.yaml
+helm repo add airflow-stable/airflow https://airflow.apache.org
+helm install airflow . -f values.yaml 
 ```
 
 Useful notes:

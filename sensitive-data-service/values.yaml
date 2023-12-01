@@ -1,6 +1,7 @@
 image:
   repository: atlasoflivingaustralia/ala-sensitive-data-service
   tag: 1.1.1-20210811-3
+dnsName: sensitive-ws.dev.ala.org.au
 replicaCount: 2
 serverPort: 8080
 javaOpts: "-Dserver.port=8080 -Djava.awt.headless=true -Xmx2g -Xms1g -Dlog4j2.formatMsgNoLookups=true"

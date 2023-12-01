@@ -1,0 +1,5 @@
+apiVersion: v2
+name: publishing-service
+description: Publishing services for LA Portal
+version: 0.1.2
+appVersion: 0.1.0

@@ -1,6 +1,7 @@
 image:
   repository: atlasoflivingaustralia/collectory
-  tag: 9144d68
+  tag: createdByIDv2
+dnsName: collections.dev.ala.org.au
 replicaCount: 1
 serverPort: 8080
 javaOpts: "-Dserver.port=8080 -Djava.awt.headless=true -Xmx2g -Xms1g -Dlog4j2.formatMsgNoLookups=true"

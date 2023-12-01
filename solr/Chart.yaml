@@ -1,6 +1,6 @@
 apiVersion: v2
 name: solr
-description: SOLR cloud cluster for biocache and bie
+description: SOLR cloud cluster with zookeeper for biocache and bie
 version: 0.1.0
 dependencies:
   - name: solr
