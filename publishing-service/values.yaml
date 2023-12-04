@@ -1,5 +1,5 @@
 image:
-  repository: djtfmartin/publishing-service
+  repository: atlasoflivingaustralia/publishing-service
   tag: 0.1.0
 dnsName: publish-ws.dev.ala.org.au
 replicaCount: 1

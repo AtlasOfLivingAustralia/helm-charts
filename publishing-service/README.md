@@ -1,4 +1,4 @@
-# Species Lists installation
+# Publishing API installation
 
 ## Import config
 
