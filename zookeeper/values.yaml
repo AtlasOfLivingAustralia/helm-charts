@@ -1,0 +1,12 @@
+zookeeper:
+  image:
+    registry: docker.io
+    repository: bitnami/zookeeper
+    tag: 3.9.1-debian-11-r1
+    pullPolicy: Always
+  replicaCount: 5
+  dataLogDir: ""
+  persistence:
+    enabled: false
+    accessMode: ReadWriteMany
+    size: 25Gi

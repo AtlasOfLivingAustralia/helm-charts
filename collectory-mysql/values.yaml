@@ -42,5 +42,6 @@ mysql:
       mountPath: /bitnami/mysql/data
       subPath: collectory-mysql
       enabled: true
+      storageClass: efs-sc
       accessMode: ReadWriteMany
       size: 100Gi

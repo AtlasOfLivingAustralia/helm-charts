@@ -9,3 +9,4 @@
 repo
 Chart.lock
 /*/Chart.lock
+common-values.yaml

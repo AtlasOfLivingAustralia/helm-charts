@@ -2,4 +2,4 @@ apiVersion: v2
 name: ala-hub
 description: Biocache web front end
 version: 0.1.2
-appVersion: 343a0c9
+appVersion: 0f0d7dd-test

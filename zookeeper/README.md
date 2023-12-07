@@ -1,0 +1,1 @@
+helm install zookeeper . -f values.yaml -f ../common-values.yaml
