@@ -1,0 +1,4 @@
+apiVersion: v2
+name: airflow-storage
+description: Run Airflow storage in Kubernetes
+version: 0.1.0
