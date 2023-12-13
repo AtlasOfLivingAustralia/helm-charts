@@ -1,8 +1,9 @@
 apiVersion: v2
 name: airflow
-description: Run Airflow in Kubernetes
+description: Install Airflow with dependencies in Kubernetes
 version: 0.1.0
+appVersion: 2.6.3
 dependencies:
   - name: airflow
-    version: "8.8.0"
+    version: 8.8.0
     repository: https://airflow-helm.github.io/charts

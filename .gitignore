@@ -10,3 +10,6 @@ repo
 Chart.lock
 /*/Chart.lock
 common-values.yaml
+common-values-ala-dev.yaml
+airflow/charts/airflow-8.8.0.tgz
+.DS_Store

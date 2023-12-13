@@ -1,19 +1,23 @@
 # Airflow installation
 
 This is for installing airflow in a kubernetes cluster.
-This is for non-production use only.
+This sets up an airflow install with additional python libraries
+used by Atlas DAGs.
+
 
 ## Setup storage
 
+Use the airflow-storage chart before using this one.
+
 ```shell
-kubectl apply -f airflow.yaml 
+helm install airflow-storage . -f ../common-values.yaml
 ```
 
 ## Install helm package with values.yml
 
 ```shell
-helm repo add airflow-stable/airflow https://airflow.apache.org
-helm install airflow . -f values.yaml 
+helm dependency build
+helm install airflow . -f values.yaml
 ```
 
 Useful notes:
