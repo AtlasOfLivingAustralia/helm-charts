@@ -1,4 +1,4 @@
-# Storage
+# EFS Storage
 storageClassName: efs-sc
 fileSystemId: fs-1234567890
 provisioner: efs.csi.aws.com
@@ -14,4 +14,8 @@ ingressAnnotations:
   alb.ingress.kubernetes.io/target-type: ip
   alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-2:1234567890:certificate/<uuid>
 
-
+# Airflow IAM role for service account
+airflow:
+  serviceAccount:
+    annotations: 
+        eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/airflow-eks-role

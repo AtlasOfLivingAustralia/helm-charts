@@ -10,7 +10,7 @@ airflow:
     ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/configuration/airflow-version.md
     image:
       repository: apache/airflow
-      tag: 2.6.3-python3.9
+      tag: 2.7.3-python3.9
       pullPolicy: IfNotPresent
 
     ## the airflow executor type to use
@@ -31,6 +31,9 @@ airflow:
     config:
       AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "False"
       AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      AIRFLOW__LOGGING__REMOTE_LOGGING: "True"
+      AIRFLOW__LOGGING__REMOTE_BASE_LOG_FOLDER: "s3://ala-pipelines-dev/airflow/logs"
+      AIRFLOW__LOGGING__REMOTE_LOG_CONN_ID: "aws_default"      
 
     ## a list of users to create
     ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/security/airflow-users.md
@@ -44,7 +47,65 @@ airflow:
 
     ## a list airflow connections to create
     ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/dags/airflow-connections.md
-    connections: []
+    connections:
+      - id: aws_default
+        type: aws
+        login: "NONSENSE"
+        password: "NONSENSE"
+        extra: |
+          {
+            "region_name": "ap-southeast-2"
+          }
+      - id: emr_default
+        type: emr
+        login: "NONSENSE"
+        password: "NONSENSE"
+        extra: |
+          {
+            "Name": "default_job_flow_name",
+            "LogUri": "s3://ala-pipelines-dev/airflow/logs",
+            "ReleaseLabel": "emr-5.34.0",
+            "Instances": {
+              "Ec2KeyName": "SET_IN_DAG",
+              "Ec2SubnetId": "SET_IN_DAG",
+              "InstanceGroups": [
+                {
+                  "Name": "Master nodes",
+                  "Market": "ON_DEMAND",
+                  "InstanceRole": "MASTER",
+                  "InstanceType": "SET_IN_DAG",
+                  "InstanceCount": 1
+                },
+                {
+                  "Name": "Core nodes",
+                  "Market": "ON_DEMAND",
+                  "InstanceRole": "CORE",
+                  "InstanceType": "SET_IN_DAG",
+                  "InstanceCount": 1
+                }
+              ],
+              "TerminationProtected": false,
+              "KeepJobFlowAliveWhenNoSteps": false
+            },
+            "Applications": [
+              {
+                "Name": "Spark"
+              }
+            ],
+            "VisibleToAllUsers": true,
+            "JobFlowRole": "EMR_EC2_DefaultRole",
+            "ServiceRole": "EMR_DefaultRole",
+            "Tags": [
+              {
+                "Key": "app",
+                "Value": "analytics"
+              },
+              {
+                "Key": "environment",
+                "Value": "development"
+              }
+            ]
+          }
 
     ## a list airflow variables to create
     ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/dags/airflow-variables.md
@@ -164,11 +225,11 @@ airflow:
     ## [SPEC] https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#resourcerequirements-v1-core
     resources:
       limits:
-        cpu: 1000m
-        memory: 8Gi
+        cpu: 1500m
+        memory: 16Gi
       requests:
-        cpu: 500m
-        memory: 4Gi
+        cpu: 750m
+        memory: 8Gi
 
     ## configs for the Service of the web Pods
     service:
@@ -214,6 +275,7 @@ airflow:
 
       ## annotations for the ServiceAccount
       annotations: {}
+
 
   ###################################
   ## COMPONENT | Triggerer
@@ -307,7 +369,9 @@ airflow:
     name: "airflow"
 
     ## annotations for the ServiceAccount
-    annotations: {}
+    annotations: {}    
+    #annot#ations: 
+        #eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/YourIAMRoleName    
 
   ###################################
   ## CONFIG | Kubernetes Extra Manifests
