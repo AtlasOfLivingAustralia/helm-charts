@@ -1,6 +1,7 @@
 image:
   repository: atlasoflivingaustralia/publishing-service
   tag: 0.1.0
+  pullPolicy: Always
 dnsName: publish-ws.dev.ala.org.au
 replicaCount: 1
 serverPort: 5000

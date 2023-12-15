@@ -18,6 +18,7 @@ spec:
       containers:
         - name: publishing-service
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 5000
           env:

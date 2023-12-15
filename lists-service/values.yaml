@@ -1,6 +1,7 @@
 image:
   repository: atlasoflivingaustralia/lists-service
   tag: 960ad21
+  pullPolicy: Always
 dnsName: lists-ws.dev.ala.org.au
 replicaCount: 2
 serverPort: 8080
