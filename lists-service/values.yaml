@@ -1,6 +1,6 @@
 image:
   repository: atlasoflivingaustralia/lists-service
-  tag: 960ad21
+  tag: latest
   pullPolicy: Always
 dnsName: lists-ws.dev.ala.org.au
 replicaCount: 2
