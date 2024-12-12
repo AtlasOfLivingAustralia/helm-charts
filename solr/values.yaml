@@ -3,8 +3,13 @@ solr:
     registry: docker.io
     repository: atlasoflivingaustralia/solr8-jts
     tag: bitnami-8.11.2
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
     debug: true
+
+  global:
+    compatibility:
+      openshift:
+        adaptSecurityContext: disabled
 
   auth:
     enabled: false
@@ -14,6 +19,8 @@ solr:
   extraEnvVars:
     - name: "SOLR_ULIMIT_CHECKS"
       value: "65000"
+    - name: "SOLR_DATA_HOME"
+      value: "/bitnami/solr"
 
   service:
     type: ClusterIP
@@ -24,14 +31,14 @@ solr:
       memory: "16Gi"
     requests:
       cpu: "2000m"
-      memory: "8Gi"
+      memory: "12Gi"
 
   startupProbe:
-    enabled: false
+    enabled: true
   readinessProbe:
-    enabled: false
+    enabled: true
   livenessProbe:
-    enabled: false
+    enabled: true
 
   replicaCount: 4
   heap: "8g"
@@ -45,7 +52,7 @@ solr:
 
   persistence:
     existingClaim: solr-claim
-    mountPath: /data/solr/
+    mountPath: /bitnami/solr
     subPathExpr: solr/$(MY_POD_NAME)
     enabled: true
     accessMode: ReadWriteMany
@@ -58,7 +65,32 @@ solr:
 
   externalZookeeper:
     servers:
-      - "zookeeper:2181"
+      - "zookeeper-0.zookeeper-headless.default.svc.cluster.local:2181,zookeeper-1.zookeeper-headless.default.svc.cluster.local:2181,zookeeper-2.zookeeper-headless.default.svc.cluster.local:2181"
+
+  ingress:
+    enabled: true
+    hostname: ""
+    extraRules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: solr
+                port:
+                  number: 8983
+            path: /
+            pathType: Prefix
+    ingressClassName: alb
+    annotations:
+      alb.ingress.kubernetes.io/scheme: internal
+      alb.ingress.kubernetes.io/target-type: ip # instance doesn't work with Fargate. See https://docs.aws.amazon.com/eks/latest/userguide/fargate.html#fargate-considerations
+      alb.ingress.kubernetes.io/success-codes: 200,302
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTP": 8983}]'
+      alb.ingress.kubernetes.io/inbound-cidrs: 10.0.0.0/20
+      alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=true,access_logs.s3.bucket=ala-alb-access-logs
+
+metrics:
+  enabled: true
 
 diagnosticMode:
   enabled: true
