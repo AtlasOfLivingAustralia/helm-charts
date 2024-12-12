@@ -1,6 +1,7 @@
 image:
   repository: atlasoflivingaustralia/collectory
-  tag: createdByIDv2
+  tag: 9144d68
+  pullPolicy: Always
 dnsName: collections.dev.ala.org.au
 replicaCount: 1
 serverPort: 8080

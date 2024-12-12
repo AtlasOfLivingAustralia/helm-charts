@@ -1,6 +1,6 @@
 image:
   repository: atlasoflivingaustralia/publishing-service
-  tag: 0.1.0
+  tag: latest
   pullPolicy: Always
 dnsName: publish-ws.dev.ala.org.au
 replicaCount: 1
@@ -14,4 +14,3 @@ resources:
   requests:
     cpu: "1000m"
     memory: "2Gi"
-

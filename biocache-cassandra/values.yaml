@@ -32,9 +32,9 @@ cassandra:
 
   persistence:
     existingClaim: "biocache-cassandra-claim"
-    mountPath: /data/cassandra/
-    subPathExpr: biocache-cassandra/$(MY_POD_NAME)
+    mountPath: /bitnami/cassandra
+    #subPathExpr: biocache-cassandra/$(MY_POD_NAME)
     enabled: true
     storageClass: efs-sc
     accessMode: ReadWriteMany
-    size: 100Gi
+    size: 8Gi
