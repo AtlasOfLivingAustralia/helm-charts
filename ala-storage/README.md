@@ -7,3 +7,8 @@ This chart setups up a storage class and persistent volume claims for MySQL, Cas
 ```shell
 helm install ala-storage . -f ../common-values.yaml
 ```
+
+## To add a new PVC to existing chart
+```shell
+helm upgrade --reuse-values ala-storage . -f ../common-values.yaml
+```
