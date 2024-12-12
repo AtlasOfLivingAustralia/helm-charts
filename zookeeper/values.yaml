@@ -2,11 +2,20 @@ zookeeper:
   image:
     registry: docker.io
     repository: bitnami/zookeeper
-    tag: 3.9.1-debian-11-r1
+    tag: 3.9.3-debian-12-r1
     pullPolicy: Always
-  replicaCount: 5
-  dataLogDir: ""
-  persistence:
+  replicaCount: 3
+  volumePermissions:
     enabled: false
+  persistence:
+    enabled: true
+    existingClaim: zookeeper-claim
     accessMode: ReadWriteMany
-    size: 25Gi
+    size: 8Gi
+  fourlwCommandsWhitelist: "*" # see https://zookeeper.apache.org/doc/r3.4.10/zookeeperAdmin.html by default in previous versions turned on
+  service:
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: external
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internal
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+      service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "2181"

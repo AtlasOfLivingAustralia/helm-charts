@@ -4,6 +4,6 @@ description: ZK cluster with zookeeper for biocache and bie
 version: 0.1.0
 dependencies:
   - name: zookeeper
-    version: "12.1.6"
+    version: "13.6.0"
     repository: "https://charts.bitnami.com/bitnami"
 
