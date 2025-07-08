@@ -1,0 +1,25 @@
+{{- if index .Values "autoscaling" "enabled" }}
+apiVersion: autoscaling.k8s.elastic.co/v1alpha1
+kind: ElasticsearchAutoscaler
+metadata:
+  name: {{ .Values.application }}-autoscaler
+  namespace: elasticsearch
+  labels:
+    {{- include "elasticsearch-app.labels" . | nindent 4 }}
+spec:
+  elasticsearchRef:
+    name: {{ .Values.application }}-cluster
+  policies:
+    - name: data-nodes
+      roles: ["data"]
+      resources:
+        nodeCount:
+          min: {{ .Values.autoscaling.minNodes }}
+          max: {{ .Values.autoscaling.maxNodes }}
+        cpu:
+          min: {{ .Values.autoscaling.minCPU }}
+          max: {{ .Values.autoscaling.maxCPU }}
+        memory:
+          min: {{ .Values.autoscaling.minMemory }}
+          max: {{ .Values.autoscaling.maxMemory }}
+{{- end }}

@@ -1,0 +1,10 @@
+apiVersion: v2
+name: elasticsearch-app
+description: Elasticsearch deployment for a single application
+version: 1.0.0
+appVersion: "8.12.0"
+dependencies:
+- name: eck-operator
+  version: 2.8.0
+  repository: https://helm.elastic.co
+  condition: eck-operator.enabled

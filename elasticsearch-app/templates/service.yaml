@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.application }}-elasticsearch
+  namespace: elasticsearch
+  labels:
+    {{- include "elasticsearch-app.labels" . | nindent 4 }}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  selector:
+    elasticsearch.k8s.elastic.co/cluster-name: {{ .Values.application }}-cluster
+  ports:
+  - port: 9200
+    name: http
+    protocol: TCP
+    targetPort: 9200
+  type: {{ .Values.serviceType }}

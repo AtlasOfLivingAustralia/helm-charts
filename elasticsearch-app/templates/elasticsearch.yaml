@@ -1,0 +1,62 @@
+{{- if index .Values "eck-operator" "enabled" }}
+# ECK operator will be installed as dependency
+{{- else }}
+# Ensure operator exists (pre-installed)
+{{- end }}
+
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: {{ .Values.application }}-cluster
+  namespace: elasticsearch
+  labels:
+    {{- include "elasticsearch-app.labels" . | nindent 4 }}
+    app: {{ .Values.application }}
+spec:
+  version: {{ .Values.elasticsearchVersion }}
+  nodeSets:
+  - name: master
+    count: {{ .Values.masterNodes.count }}
+    config:
+      node.roles: [ "master" ]
+    podTemplate:
+      spec:
+        containers:
+          - name: elasticsearch
+            startupProbe:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - 'curl -s -k https://localhost:9200'
+              failureThreshold: 30
+              periodSeconds: 10
+            resources:
+              requests:
+                cpu: "1"
+                memory: "4Gi"
+              limits:
+                cpu: "2"
+                memory: "8Gi"
+  - name: data
+    count: {{ .Values.dataNodes.count }}
+    config:
+      node.roles: ["data"]
+    podTemplate:
+      spec:
+        securityContext:
+          runAsUser: 1000
+          fsGroup: 1000
+        containers:
+        - name: elasticsearch
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: {{ .Values.storageClass | default "auto-ebs-sc" }}
+        resources:
+          requests:
+            storage: {{ .Values.storage }}

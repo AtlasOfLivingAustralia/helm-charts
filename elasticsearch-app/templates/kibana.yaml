@@ -1,0 +1,23 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: {{ .Values.application }}-kibana
+  namespace: elasticsearch
+  labels:
+    {{- include "elasticsearch-app.labels" . | nindent 4 }}
+    app: {{ .Values.application }}
+spec:
+  version: {{ .Values.elasticsearchVersion | default "8.12.0" }}
+  count: {{ .Values.kibana.count | default 1 }}
+  elasticsearchRef:
+    name: {{ .Values.application }}-cluster
+  http:
+    service:
+      spec:
+        type: {{ .Values.kibana.serviceType | default "ClusterIP" }}
+  podTemplate:
+    spec:
+      containers:
+        - name: kibana
+          resources:
+          {{- toYaml .Values.kibana.resources | nindent 10 }}

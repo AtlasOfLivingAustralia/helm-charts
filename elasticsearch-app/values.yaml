@@ -1,0 +1,61 @@
+# Application identifier (must be unique)
+application: "myapp"
+
+masterNodes:
+  count: 3
+  resources:
+    requests:
+      cpu: "1"
+      memory: "4Gi"
+    limits:
+      cpu: "2"
+      memory: "8Gi"
+  storage: 10Gi
+dataNodes:
+  count: 2
+elasticsearchVersion: "8.12.0"
+storageClass: "auto-ebs-sc"
+
+# Resource configuration
+resources:
+  requests:
+    cpu: "1"
+    memory: "4Gi"
+  limits:
+    cpu: "2"
+    memory: "8Gi"
+storage: 50Gi
+
+# Autoscaling configuration
+autoscaling:
+  enabled: false
+  minNodes: 1
+  maxNodes: 3
+  minCPU: "1"
+  maxCPU: "2"
+  minMemory: "4Gi"
+  maxMemory: "8Gi"
+
+# Service configuration
+serviceType: "LoadBalancer"
+
+# ECK operator settings (disable if pre-installed)
+eck-operator:
+  enabled: true
+  fullnameOverride: "eck-operator"
+
+elasticsearch:
+  readinessProbe:
+    timeoutSeconds: 10
+    periodSeconds: 15
+
+kibana:
+  count: 1
+  serviceType: "ClusterIP"
+  resources:
+    requests:
+      cpu: "0.5"
+      memory: "1Gi"
+    limits:
+      cpu: "1"
+      memory: "2Gi"
